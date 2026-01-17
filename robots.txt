@@ -1,0 +1,10 @@
+# AI Mastery robots.txt
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://aimastery.io/sitemap.xml
+
+# Disallow admin and legacy paths
+Disallow: /ai-mastery-platform/public/legacy/
