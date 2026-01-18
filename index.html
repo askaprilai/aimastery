@@ -703,6 +703,93 @@
             pointer-events: none;
             z-index: 3;
         }
+
+        /* Cookie Consent Banner */
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 26, 46, 0.98);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 16px 24px;
+            z-index: 100;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .cookie-consent.show {
+            transform: translateY(0);
+        }
+
+        .cookie-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .cookie-content p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            margin: 0;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .cookie-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: none;
+        }
+
+        .cookie-btn.accept {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .cookie-btn.accept:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .cookie-btn.learn-more {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cookie-btn.learn-more:hover {
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        @media (max-width: 600px) {
+            .cookie-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cookie-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1028,13 +1115,24 @@
                 </div>
                 
                 <div class="footer-bottom">
-                    <p>&copy; 2024 AI Mastery. Transforming careers through AI leadership.</p>
+                    <p>&copy; 2025 AI Mastery. Transforming careers through AI leadership.</p>
                 </div>
             </div>
         </footer>
 
         <!-- Gradient Overlay -->
         <div class="gradient-overlay"></div>
+
+        <!-- Cookie Consent Banner -->
+        <div id="cookieConsent" class="cookie-consent" role="dialog" aria-label="Cookie consent">
+            <div class="cookie-content">
+                <p>We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.</p>
+                <div class="cookie-buttons">
+                    <button id="acceptCookies" class="cookie-btn accept">Accept</button>
+                    <a href="/privacy-policy.html" class="cookie-btn learn-more">Learn More</a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -1139,6 +1237,24 @@
                 trackEngagement('Course Click: ' + title);
             });
         });
+
+        // Cookie Consent
+        const cookieConsent = document.getElementById('cookieConsent');
+        const acceptCookies = document.getElementById('acceptCookies');
+
+        if (cookieConsent && acceptCookies) {
+            // Check if user has already accepted
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookieConsent.classList.add('show');
+                }, 1000);
+            }
+
+            acceptCookies.addEventListener('click', function() {
+                localStorage.setItem('cookieConsent', 'accepted');
+                cookieConsent.classList.remove('show');
+            });
+        }
     </script>
 </body>
 </html>
